@@ -1,36 +1,100 @@
 const container = document.querySelector('.container');
 const sizeButton = document.querySelector('.select-size');
 const clearButton = document.querySelector('.clear');
+const rainbowButton = document.querySelector('.rainbow');
+const colorSelect = document.querySelector('.color');
+const colorMode = document.querySelector('.color-mode');
+const slider = document.querySelector('.size-select');
+const sliderDisplay = document.querySelector('.slider-display');
+let currentColor = colorSelect.value;
+let isMouseDown = 0;
+let isRainbow = 0;
+let size = 16;
 
-const createGrid = (cells) => {
+const generateRandColor = () => {
+  let letters = '0123456789ABCDEF';
+  let color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
+const createGrid = (size) => {
   let divs = [];
-  const numCells = cells * cells;
+  const numCells = size * size;
   for (let i = 0; i < numCells; i++) {
     const element = document.createElement('div');
     element.classList.add('grid-cell');
-    element.style.height = `${640 / cells}px`;
-    element.style.width = `${640 / cells}px`;
+    element.style.height = `${640 / size}px`;
+    element.style.width = `${640 / size}px`;
     divs.push(element);
   }
-  container.style.gridTemplateColumns = `repeat(${cells}, 1fr)`;
-  divs.forEach((div) => container.appendChild(div));
-  divs.forEach((div) =>
+  container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+  divs.forEach((div) => {
+    container.appendChild(div);
+    div.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      isMouseDown = 1;
+    });
     div.addEventListener(
-      'mouseenter',
-      (e) => (div.style.backgroundColor = 'black')
-    )
-  );
+      'click',
+      (e) =>
+        (div.style.backgroundColor =
+          isRainbow === 1 ? generateRandColor() : currentColor)
+    );
+    div.addEventListener('mouseup', (e) => (isMouseDown = 0));
+    div.addEventListener('mouseenter', (e) => {
+      if (isMouseDown === 1)
+        div.style.backgroundColor =
+          isRainbow === 1 ? generateRandColor() : currentColor;
+    });
+  });
 };
 
-const clearGrid = () => (container.innerHTML = '');
+const resetGrid = () => {
+  container.innerHTML = '';
+  createGrid(size);
+};
 
-sizeButton.addEventListener('click', (e) => {
-  clearGrid();
-  let input = prompt('Please enter desired grid size up to 99x99, e.g. 40x40');
-  input = input.match(/[0-9][0-9]/g)[0];
-  createGrid(Number(input));
+// sizeButton.addEventListener('click', (e) => {
+//   let input = prompt('Please enter desired grid size up to 99x99, e.g. 40x40');
+//   input = input.match(/[0-9][0-9]|[0-9]/g)[0];
+//   container.innerHTML = '';
+//   size = input;
+//   createGrid(Number(input));
+// });
+
+document.addEventListener('mousemove', (e) => {
+  if (!e.target.classList.contains('grid-cell')) {
+    isMouseDown = 0;
+  }
 });
 
-clearButton.addEventListener('click', clearGrid);
+clearButton.addEventListener('click', resetGrid);
 
-createGrid(16);
+colorSelect.addEventListener('input', (e) => (currentColor = e.target.value));
+
+rainbowButton.addEventListener('click', () => {
+  isRainbow = 1;
+  rainbowButton.disabled = true;
+  colorMode.disabled = false;
+});
+
+colorMode.addEventListener('click', (e) => {
+  rainbowButton.disabled = false;
+  colorMode.disabled = true;
+  isRainbow = 0;
+});
+
+slider.addEventListener(
+  'input',
+  (e) => (sliderDisplay.textContent = `${e.target.value} X ${e.target.value}`)
+);
+
+slider.addEventListener('change', (e) => {
+  size = e.target.value;
+  resetGrid();
+});
+
+createGrid(size, isRainbow);

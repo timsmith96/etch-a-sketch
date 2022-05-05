@@ -4,6 +4,12 @@
   padding: 0;
 }
 
+h1 {
+  font-size: 5rem;
+  padding: 30px;
+  color: red;
+}
+
 main {
   margin: 0 auto;
   text-align: center;
@@ -18,11 +24,17 @@ main {
   height: 640px;
   width: 640px;
   border: 1px solid black;
-  align-items: center;
 }
 
-.grid-cell {
-  height: 40px;
-  width: 40px;
-  border: 1px solid black;
+.slider-wrapper {
+  padding: 10px;
+}
+
+button {
+  padding: 10px;
+  margin: 10px;
+}
+
+.btn-clicked {
+  background-color: green;
 }

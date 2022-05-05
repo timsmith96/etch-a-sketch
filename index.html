@@ -12,8 +12,21 @@
       <h1>Etch-a-sketch</h1>
       <div class="container"></div>
       <div class="controls">
-        <button class="select-size">Choose grid size</button>
+        <div class="slider-wrapper">
+          <p class="slider-display">16 X 16</p>
+          <input
+            type="range"
+            class="size-select"
+            min="1"
+            max="99"
+            id="size-select"
+            value="16"
+          />
+        </div>
         <button class="clear">Clear grid</button>
+        <button class="rainbow">Rainbow mode</button>
+        <button class="color-mode" disabled="true">Colour mode</button>
+        <input type="color" class="color" />
       </div>
     </main>
     <script src="app.js"></script>
