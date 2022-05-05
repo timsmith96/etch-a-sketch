@@ -9,7 +9,7 @@ const sliderDisplay = document.querySelector('.slider-display');
 let currentColor = colorSelect.value;
 let isMouseDown = 0;
 let isRainbow = 0;
-let size = 16;
+let size = 40;
 
 const generateRandColor = () => {
   let letters = '0123456789ABCDEF';
@@ -56,14 +56,6 @@ const resetGrid = () => {
   container.innerHTML = '';
   createGrid(size);
 };
-
-// sizeButton.addEventListener('click', (e) => {
-//   let input = prompt('Please enter desired grid size up to 99x99, e.g. 40x40');
-//   input = input.match(/[0-9][0-9]|[0-9]/g)[0];
-//   container.innerHTML = '';
-//   size = input;
-//   createGrid(Number(input));
-// });
 
 document.addEventListener('mousemove', (e) => {
   if (!e.target.classList.contains('grid-cell')) {
