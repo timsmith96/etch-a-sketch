@@ -10,6 +10,10 @@ let currentColor = colorSelect.value;
 let isMouseDown = 0;
 let isRainbow = 0;
 let size = 40;
+let gridSize = parseInt(
+  window.getComputedStyle(container).getPropertyValue('height')
+);
+console.log(gridSize);
 
 const generateRandColor = () => {
   let letters = '0123456789ABCDEF';
@@ -26,8 +30,8 @@ const createGrid = (size) => {
   for (let i = 0; i < numCells; i++) {
     const element = document.createElement('div');
     element.classList.add('grid-cell');
-    element.style.height = `${640 / size}px`;
-    element.style.width = `${640 / size}px`;
+    // element.style.height = `${gridSize / size}px`;
+    // element.style.width = `${gridSize / size}px`;
     divs.push(element);
   }
   container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
@@ -69,13 +73,13 @@ colorSelect.addEventListener('input', (e) => (currentColor = e.target.value));
 
 rainbowButton.addEventListener('click', () => {
   isRainbow = 1;
-  rainbowButton.disabled = true;
-  colorMode.disabled = false;
+  rainbowButton.classList.add('clicked');
+  colorMode.classList.remove('clicked');
 });
 
 colorMode.addEventListener('click', (e) => {
-  rainbowButton.disabled = false;
-  colorMode.disabled = true;
+  colorMode.classList.add('clicked');
+  rainbowButton.classList.remove('clicked');
   isRainbow = 0;
 });
 

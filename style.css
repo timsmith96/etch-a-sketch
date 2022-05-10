@@ -2,39 +2,130 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 h1 {
   font-size: 5rem;
   padding: 30px;
-  color: red;
+  color: #334155;
+}
+
+body {
+  background-color: #f1f5f9;
 }
 
 main {
   margin: 0 auto;
   text-align: center;
-  width: 700px;
+  max-width: 700px;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .container {
   display: grid;
-  height: 640px;
-  width: 640px;
-  border: 1px solid black;
+  height: 540px;
+  width: 540px;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  background-color: #fff;
 }
 
 .slider-wrapper {
+  margin-top: 15px;
   padding: 10px;
 }
 
 button {
   padding: 10px;
-  margin: 10px;
+  background-color: #475569;
+  color: #fff;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  border: 1px solid #475569;
+  border-radius: 5px;
 }
 
-.btn-clicked {
-  background-color: green;
+button:hover {
+  cursor: pointer;
+  color: #334155;
+  background-color: #fff;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type='color'] {
+  -webkit-appearance: none;
+  border: none;
+  width: 45px;
+  height: 45px;
+}
+input[type='color']::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type='color']::-webkit-color-swatch {
+  border-radius: 50%;
+}
+
+.color:hover {
+  cursor: pointer;
+}
+
+.clicked {
+  cursor: default !important;
+  color: #334155;
+  background-color: #fff;
+}
+
+.slider-display {
+  margin-bottom: 10px;
+  color: #334155;
+  letter-spacing: 2px;
+}
+
+input[type='range'] {
+  -webkit-appearance: none;
+  background-color: none;
+  margin-bottom: 10px;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  height: 10px;
+  border: 1px solid var(--primary-dark);
+  border-radius: 25px;
+  background: #334155;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 25px;
+  margin-top: -8px;
+  background: #fff;
+  border: 1px solid #1e293b;
+}
+
+@media screen and (max-width: 700px) {
+  h1 {
+    font-size: 3.5rem;
+  }
+
+  .container {
+    height: 350px;
+    width: 350px;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
